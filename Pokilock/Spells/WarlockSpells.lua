@@ -2,8 +2,6 @@ local Unlocker, Caffeine, Project = ...
 
 local SpellBook = Caffeine.Globals.SpellBook
 
-print("Im in the real spellbook!")
-
 Project.Spells = {
 
     corruption = SpellBook:GetSpell(47813),

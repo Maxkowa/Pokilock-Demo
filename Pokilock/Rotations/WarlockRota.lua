@@ -4,7 +4,7 @@ local Unlocker, Caffeine, Project = ...
 -- deleteExcessSoulShards
 -- Add Menu and spells for: healthstone, drainlife, doom&agony, drainsoul farm
 --felDomination add
---
+-- PandaTicketBurst
 --
 
 
@@ -148,82 +148,82 @@ function WasCastingCheck()
     end
 end
 
-local function hasSoulstone()
-    local hasItem = GetItemCount(36895) > 0 -- Assuming 36895 is the ID of the soulstone
-    return hasItem
-end
+--local function hasSoulstone()
+--    local hasItem = GetItemCount(36895) > 0 -- Assuming 36895 is the ID of the soulstone
+--    return hasItem
+--end
 
-local function hasSpellstone()
-    local hasItem = GetItemCount(41196, 41191, 41192, 41193, 41194, 41195) > 0 -- Assuming 36895 is the ID of the soulstone
-    return hasItem
-end
+--local function hasSpellstone()
+--    local hasItem = GetItemCount(41196, 41191, 41192, 41193, 41194, 41195) > 0 -- Assuming 36895 is the ID of the soulstone
+--    return hasItem
+--end
 
-local function hasHealthstone()
-    local hasItem = GetItemCount(36892, 36893, 36894) > 0
-    return hasItem
-end
+--local function hasHealthstone()
+--    local hasItem = GetItemCount(36892, 36893, 36894) > 0
+--    return hasItem
+--end
 
 local function hasSoulShards()
     local soulShardCount = GetItemCount(6265) 
     return soulShardCount >= 1
 end
 
-function Buff()
-    local spellstonelist = { 41196, 41191, 41192, 41193, 41194, 41195 }
+--function Buff()
+--    local spellstonelist = { 41196, 41191, 41192, 41193, 41194, 41195 }
+--
+--    function _Use(item)
+--        local name, bag, slot = SecureCmdItemParse(item)
+--        if slot or GetItemInfo(name) then
+--            SecureCmdUseItem(name, bag, slot)
+--        end
+--    end
+--
+--    local hasMH, mhExpires, _, _, hasOH, ohExpires, _ = GetWeaponEnchantInfo()
+--
+--    if not (hasMH and mhExpires) and not IsPlayerMoving() and hasSoulShards() then
+--        for i = 1, #spellstonelist do
+--            if GetItemCount(spellstonelist[i]) >= 1 and (C_Container.GetItemCooldown(spellstonelist[i])) == 0 then
+--                local CurrentWeapon = GetInventoryItemID("player", 16)
+--                local spellstonename = GetItemInfo(spellstonelist[i])
+--                if spellstonename then
+--                    _Use(spellstonename)
+--                    UseInventoryItem(16)
+--                    spellstonecount = 0
+--                end
+--            end
+--        end
+--    end
+--end
 
-    function _Use(item)
-        local name, bag, slot = SecureCmdItemParse(item)
-        if slot or GetItemInfo(name) then
-            SecureCmdUseItem(name, bag, slot)
-        end
-    end
+--function UseItemInSlot10()
+--    local itemID = GetInventoryItemID("player", 10)
+--    if not itemID then return end 
+--
+--    local itemName = GetItemInfo(itemID)
+--
+--    if player:IsAffectingCombat() and target:IsEnemy() and IsUsableItem(itemID) then
+--        UseInventoryItem(10)
+--    end
+--end
 
-    local hasMH, mhExpires, _, _, hasOH, ohExpires, _ = GetWeaponEnchantInfo()
+--RestingAPL:AddSpell(
+--    spells.create_soulstone:CastableIf(function(self)
+--        return self:IsKnownAndUsable() and not hasSoulstone() and hasSoulShards()
+--    end):SetTarget(player)
+--)
 
-    if not (hasMH and mhExpires) and not IsPlayerMoving() and hasSoulShards() then
-        for i = 1, #spellstonelist do
-            if GetItemCount(spellstonelist[i]) >= 1 and (C_Container.GetItemCooldown(spellstonelist[i])) == 0 then
-                local CurrentWeapon = GetInventoryItemID("player", 16)
-                local spellstonename = GetItemInfo(spellstonelist[i])
-                if spellstonename then
-                    _Use(spellstonename)
-                    UseInventoryItem(16)
-                    spellstonecount = 0
-                end
-            end
-        end
-    end
-end
+--RestingAPL:AddSpell(
+--    spells.create_healthstone:CastableIf(function(self)
+--        WasCastingCheck()
+--        return self:IsKnownAndUsable() and not hasHealthstone() and hasSoulShards() and not wasCasting["Create Healthstone"]
+--    end):SetTarget(player)
+--)
 
-function UseItemInSlot10()
-    local itemID = GetInventoryItemID("player", 10)
-    if not itemID then return end 
-
-    local itemName = GetItemInfo(itemID)
-
-    if player:IsAffectingCombat() and target:IsEnemy() and IsUsableItem(itemID) then
-        UseInventoryItem(10)
-    end
-end
-
-RestingAPL:AddSpell(
-    spells.create_soulstone:CastableIf(function(self)
-        return self:IsKnownAndUsable() and not hasSoulstone() and hasSoulShards()
-    end):SetTarget(player)
-)
-
-RestingAPL:AddSpell(
-    spells.create_healthstone:CastableIf(function(self)
-        WasCastingCheck()
-        return self:IsKnownAndUsable() and not hasHealthstone() and hasSoulShards() and not wasCasting["Create Healthstone"]
-    end):SetTarget(player)
-)
-
-RestingAPL:AddSpell(
-    spells.create_spellstone:CastableIf(function(self)
-        return self:IsKnownAndUsable() and not hasSpellstone() and hasSoulShards()
-    end):SetTarget(player)
-)
+--RestingAPL:AddSpell(
+--    spells.create_spellstone:CastableIf(function(self)
+--        return self:IsKnownAndUsable() and not hasSpellstone() and hasSoulShards()
+--    end):SetTarget(player)
+--)
 
 RestingAPL:AddSpell(
     spells.fel_armor:CastableIf(function(self)
@@ -249,11 +249,11 @@ RestingAPL:AddSpell(
     end):SetTarget(player)
 )
 
-RestingAPL:AddSpell(
-    spells.soul_link:CastableIf(function(self)
-        return self:IsKnownAndUsable() and pet:Exists() and not player:GetAuras():FindMy(soul_link_buff):IsUp()
-    end):SetTarget(target)
-)
+---RestingAPL:AddSpell(
+--    spells.soul_link:CastableIf(function(self)
+--        return self:IsKnownAndUsable() and pet:Exists() and not player:GetAuras():FindMy(soul_link_buff):IsUp()
+--    end):SetTarget(target)
+--)
 
 CombatAPL:AddSpell(
     spells.life_tap:CastableIf(function(self)
